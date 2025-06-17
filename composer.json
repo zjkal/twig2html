@@ -17,7 +17,7 @@
     "scripts": {
         "build": "php build.php",
         "dev": "php -S localhost:8080 dev.php",
-        "post-install-cmd": "php init.php"
+        "post-create-project-cmd": "php init.php"
     },
     "config": {
         "sort-packages": true
