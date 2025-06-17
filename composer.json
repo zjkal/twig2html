@@ -20,6 +20,7 @@
         "post-create-project-cmd": "php init.php"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "process-timeout": 0
     }
 }
