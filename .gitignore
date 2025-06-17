@@ -1,0 +1,24 @@
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+/phpunit.xml
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Example output
+/examples/public/
+/examples/templates/
+
+# Cache
+/cache/
