@@ -2,7 +2,12 @@
 
 namespace zjkal\twig2html\Tests;
 
+use Exception;
+use FilesystemIterator;
 use PHPUnit\Framework\TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RuntimeException;
 use zjkal\twig2html\Converter;
 
 class ConverterTest extends TestCase
@@ -38,9 +43,13 @@ class ConverterTest extends TestCase
         file_put_contents($templateFile, $templateContent);
 
         // 测试转换
-        $result = $this->converter->convert($templateFile, $outputFile, [
-            'message' => 'Hello World'
-        ]);
+        try {
+            $result = $this->converter->convert($templateFile, $outputFile, [
+                'message' => 'Hello World'
+            ]);
+        } catch (Exception $e) {
+            $result = false;
+        }
 
         $this->assertTrue($result);
         $this->assertFileExists($outputFile);
@@ -52,25 +61,27 @@ class ConverterTest extends TestCase
 
     public function testConvertNonExistentTemplate(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('模板文件不存在');
-        
-        $this->converter->convert(
-            $this->tempDir . '/non_existent.twig',
-            $this->tempDir . '/output/test.html',
-            []
-        );
+
+        try {
+            $this->converter->convert(
+                $this->tempDir . '/non_existent.twig',
+                $this->tempDir . '/output/test.html',
+            );
+        } catch (Exception $e) {
+            $this->expectExceptionMessage('模板文件不存在');
+        }
     }
 
     public function testConvertNonExistentSourceDirectory(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('源目录不存在');
-        
+
         $this->converter->convertDirectory(
             $this->tempDir . '/non_existent',
             $this->tempDir . '/output',
-            []
         );
     }
 
@@ -105,7 +116,7 @@ class ConverterTest extends TestCase
     public function testCustomFilter(): void
     {
         // 添加自定义过滤器
-        $this->converter->addFilter('test_upper', function($str) {
+        $this->converter->addFilter('test_upper', function ($str) {
             return strtoupper($str);
         });
 
@@ -116,9 +127,13 @@ class ConverterTest extends TestCase
         file_put_contents($templateFile, $templateContent);
 
         // 测试转换
-        $result = $this->converter->convert($templateFile, $outputFile, [
-            'message' => 'hello'
-        ]);
+        try {
+            $result = $this->converter->convert($templateFile, $outputFile, [
+                'message' => 'hello'
+            ]);
+        } catch (Exception $e) {
+            $result = false;
+        }
 
         $this->assertTrue($result);
         $this->assertEquals('HELLO', file_get_contents($outputFile));
@@ -127,7 +142,7 @@ class ConverterTest extends TestCase
     public function testCustomFunction(): void
     {
         // 添加自定义函数
-        $this->converter->addFunction('test_concat', function($str1, $str2) {
+        $this->converter->addFunction('test_concat', function ($str1, $str2) {
             return $str1 . $str2;
         });
 
@@ -138,10 +153,14 @@ class ConverterTest extends TestCase
         file_put_contents($templateFile, $templateContent);
 
         // 测试转换
-        $result = $this->converter->convert($templateFile, $outputFile, [
-            'text1' => 'Hello',
-            'text2' => 'World'
-        ]);
+        try {
+            $result = $this->converter->convert($templateFile, $outputFile, [
+                'text1' => 'Hello',
+                'text2' => 'World'
+            ]);
+        } catch (Exception $e) {
+            $result = false;
+        }
 
         $this->assertTrue($result);
         $this->assertEquals('HelloWorld', file_get_contents($outputFile));
@@ -153,9 +172,9 @@ class ConverterTest extends TestCase
             return;
         }
 
-        $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
         );
 
         foreach ($files as $file) {
