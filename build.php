@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use zjkal\twig2html\Converter;
+use zjkal\twig2html\core\Converter;
 
 // 设置目录
 $sourceDir = __DIR__ . '/templates';

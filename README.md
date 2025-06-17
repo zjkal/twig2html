@@ -1,145 +1,92 @@
 # Twig2Html
 
-一个强大的工具，用于将Twig模板转换为静态HTML文件。
+一个强大的Twig模板转换工具，支持开发时实时预览和生产环境静态HTML生成。
 
 ## 特性
 
-- 支持将Twig模板转换为静态HTML文件
-- 支持使用PHP数据文件为模板提供数据
-- 支持Twig的所有基本功能（条件、循环、过滤器等）
-- 简单的目录结构和使用方法
-- 支持批量转换多个模板文件
+- 支持所有Twig模板语法和功能
+- 开发时支持实时预览（直接访问.html即可）
+- 简单直观的目录结构
+- 自动加载模板对应的数据文件
+- 支持批量转换多个模板
+- 内置美观的默认样式
+
+## 系统要求
+
+- PHP >= 7.4
+- Composer
 
 ## 安装
 
 ```bash
-composer create-project zjkal/twig2html your-project-name
+composer create-project zjkal/twig2html my-project
+cd my-project
 ```
-
-这个命令会：
-1. 创建一个新的项目目录
-2. 安装所有依赖
-3. 自动运行初始化脚本
-4. 生成示例文件
 
 ## 目录结构
 
 ```
-├── templates/     # Twig模板文件目录
-├── data/         # 模板数据文件目录
-└── public/       # 生成的HTML文件目录
+my-project/
+├── templates/        # Twig模板文件
+├── data/            # 模板数据文件
+├── public/          # 静态资源和输出目录
+│   ├── assets/     # 静态资源（CSS、JS、图片等）
+│   └── *.html      # 生成的HTML文件
+├── build.php        # 构建脚本
+├── build.bat        # Windows构建批处理
+├── dev.php          # 开发服务器
+└── composer.json    # 项目配置文件
 ```
 
 ## 使用方法
 
-### 1. 初始化项目
+### 开发模式
 
+1. 启动开发服务器：
 ```bash
-composer init-project
+composer dev
+# 或者
+php -S localhost:8080 dev.php
 ```
 
-这个命令会：
-- 创建必要的目录结构
-- 生成示例模板文件 (templates/example.twig)
-- 生成示例数据文件 (data/example.php)
+2. 在浏览器中访问 http://localhost:8080/ 预览页面
+   - 直接使用`.html`后缀访问，如`http://localhost:8080/about.html`
+   - 会自动查找对应的`.twig`模板和数据文件
 
-### 2. 创建模板
+### 创建页面
 
-在 `templates` 目录中创建 `.twig` 文件，例如：
-
-```twig
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>{{ title|upper }}</h1>
-    <p>Welcome, {{ name }}!</p>
-    <ul>
-        {% for item in items %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
-```
-
-### 3. 创建数据文件
-
-在 `data` 目录中创建与模板同名的PHP文件（将.twig替换为.php），例如：
-
+1. 在`templates`目录下创建Twig模板，如`about.twig`
+2. 在`data`目录下创建对应的数据文件（可选），如`about.php`：
 ```php
 <?php
-
 return [
-    'title' => 'Welcome to Twig2Html',
-    'name' => 'John Doe',
-    'items' => [
-        'Item 1',
-        'Item 2',
-        'Item 3'
-    ]
+    'title' => '关于我们',
+    'content' => '页面内容'
 ];
 ```
 
-### 4. 生成HTML
+### 静态资源
+
+- 将静态资源（CSS、JS、图片等）放在`public/assets`目录下
+- 在模板中引用时使用以下路径格式：
+```html
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/main.js"></script>
+<img src="/assets/images/logo.png">
+```
+
+### 生成静态HTML
+
+开发完成后，执行以下命令生成静态HTML文件：
 
 ```bash
 composer build
+# 或者
+php build.php
 ```
 
-这个命令会：
-- 读取 `templates` 目录中的所有 `.twig` 文件
-- 查找 `data` 目录中对应的数据文件
-- 生成HTML文件到 `public` 目录
-
-## 高级用法
-
-### 在PHP代码中使用
-
-```php
-use zjkal\twig2html\Converter;
-
-$converter = new Converter();
-
-// 转换单个文件
-$converter->convert('template.twig', 'output.html', [
-    'title' => 'Hello World',
-    'content' => 'Welcome to my website'
-]);
-
-// 转换整个目录
-$converter->convertDirectory('templates', 'public');
-```
-
-### 自定义过滤器
-
-```php
-$converter = new Converter();
-
-// 添加自定义过滤器
-$converter->addFilter('rot13', function ($string) {
-    return str_rot13($string);
-});
-```
-
-### 自定义函数
-
-```php
-$converter = new Converter();
-
-// 添加自定义函数
-$converter->addFunction('formatDate', function ($date, $format = 'Y-m-d') {
-    return date($format, strtotime($date));
-});
-```
-
-## 贡献
-
-欢迎提交Issue和Pull Request！
+生成的HTML文件将保存在`public`目录中。
 
 ## 许可证
 
-MIT
+MIT License
