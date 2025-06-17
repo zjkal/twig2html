@@ -31,8 +31,56 @@ if ($requestPath === '/') {
 if (strpos($requestPath, '/assets/') === 0) {
     $filePath = $publicDir . $requestPath;
     if (file_exists($filePath)) {
-        $mimeType = mime_content_type($filePath);
+        // 根据文件扩展名设置正确的Content-Type
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+        $mimeTypes = [
+            // 样式表和脚本
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            // 图片
+            'png' => 'image/png',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'svg' => 'image/svg+xml',
+            'ico' => 'image/x-icon',
+            'webp' => 'image/webp',
+            'avif' => 'image/avif',
+            // 字体
+            'woff' => 'font/woff',
+            'woff2' => 'font/woff2',
+            'ttf' => 'font/ttf',
+            'otf' => 'font/otf',
+            'eot' => 'application/vnd.ms-fontobject',
+            // 文档
+            'html' => 'text/html',
+            'htm' => 'text/html',
+            'xml' => 'application/xml',
+            'txt' => 'text/plain',
+            'md' => 'text/markdown',
+            'pdf' => 'application/pdf',
+            // 音视频
+            'mp3' => 'audio/mpeg',
+            'wav' => 'audio/wav',
+            'ogg' => 'audio/ogg',
+            'mp4' => 'video/mp4',
+            'webm' => 'video/webm',
+            'm4v' => 'video/x-m4v',
+            // 压缩文件
+            'zip' => 'application/zip',
+            'gz' => 'application/gzip',
+            'tar' => 'application/x-tar',
+            // 其他常用类型
+            'csv' => 'text/csv',
+            'ics' => 'text/calendar',
+            'vcf' => 'text/vcard'
+        ];
+        $mimeType = isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : mime_content_type($filePath);
         header('Content-Type: ' . $mimeType);
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0'); // 确保所有浏览器都不缓存
         readfile($filePath);
         exit;
     }
