@@ -28,7 +28,7 @@ if (!file_exists($exampleTemplate)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>欢迎使用Twig2Html</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <style>
         body {
@@ -38,27 +38,27 @@ if (!file_exists($exampleTemplate)) {
             margin: 0 auto;
             padding: 20px;
         }
-        .feature-list {
-            margin-top: 20px;
-        }
-        .feature-list li {
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
-    <h1>{{ title }}</h1>
+    <h1>欢迎使用Twig2Html</h1>
     <div class="content">
-        {{ content }}
+        <p>这是一个示例页面，展示了如何使用Twig2Html工具将Twig模板转换为静态HTML文件。</p>
+        <p>开发时可以直接访问 index.html 预览效果，完成后执行 composer build 生成静态文件。</p>
     </div>
-    {% if features %}
+    {% if items is defined and items is not empty %}
     <div class="feature-list">
-        <h2>主要特性：</h2>
+        <h2>数据文件演示：</h2>
         <ul>
-            {% for feature in features %}
-            <li>{{ feature }}</li>
+            {% for item in items %}
+            <li>{{ item }}</li>
             {% endfor %}
         </ul>
+    </div>
+    {% else %}
+    <div class="note">
+        <p>提示：当前页面没有加载数据文件，这是正常的。</p>
+        <p>如果需要展示动态数据，可以创建 data/index.php 文件并返回数据数组。</p>
     </div>
     {% endif %}
     <script src="/assets/js/main.js"></script>
@@ -76,15 +76,10 @@ if (!file_exists($exampleData)) {
 <?php
 
 return [
-    'title' => '欢迎使用Twig2Html',
-    'content' => '这是一个示例页面，展示了如何使用Twig2Html工具将Twig模板转换为静态HTML文件。开发时可以直接访问 index.html 预览效果，完成后执行 composer build 生成静态文件。',
-    'features' => [
-        '支持所有Twig模板语法和功能',
-        '开发时支持实时预览（访问.html即可）',
-        '简单直观的目录结构',
-        '自动加载模板对应的数据文件',
-        '支持批量转换多个模板',
-        '内置美观的默认样式'
+    'items' => [
+        '这是从数据文件加载的第一条信息',
+        '这是从数据文件加载的第二条信息',
+        '这是从数据文件加载的第三条信息'
     ]
 ];
 PHP;
@@ -128,6 +123,8 @@ JS;
     echo "Created example JavaScript file: {$exampleJs}\n";
 }
 
+$projectDir = basename(__DIR__);
 echo "\n项目初始化完成！\n";
-echo "运行 'php dev.php' 启动开发服务器，然后访问 http://localhost:8080/ 预览页面。\n";
+echo "请先进入项目目录：cd {$projectDir}\n";
+echo "然后运行 'composer dev' 启动开发服务器，访问 http://localhost:8080/ 预览页面。\n";
 echo "完成开发后，运行 'composer build' 生成静态HTML文件。\n";

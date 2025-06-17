@@ -54,10 +54,7 @@ if (!file_exists($templatePath)) {
 
 // 查找对应的数据文件
 $dataFile = $dataDir . '/' . str_replace('.twig', '.php', $templateFile);
-$data = [];
-if (file_exists($dataFile)) {
-    $data = require $dataFile;
-}
+$data = file_exists($dataFile) ? require $dataFile : [];
 
 try {
     // 渲染模板
