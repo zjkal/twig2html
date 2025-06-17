@@ -68,6 +68,20 @@ php -S localhost:8080 dev.php
    - 开发服务器会自动查找对应的`.twig`模板
    - 如果存在同名的数据文件，会自动加载数据
 
+### 模板命名规范
+
+为了区分完整页面模板和部分模板（如布局、导航等），我们采用以下命名规范：
+
+- 完整页面模板：使用`.twig`后缀，例如：`index.twig`、`about.twig`
+- 部分模板：使用`.part.twig`后缀，例如：
+  - `header.part.twig`：页头模板
+  - `footer.part.twig`：页脚模板
+  - `nav.part.twig`：导航模板
+  - `sidebar.part.twig`：侧边栏模板
+  - `layout.part.twig`：布局模板
+
+在目录批量转换时，所有`.part.twig`后缀的文件都会被自动跳过，不会生成对应的HTML文件。
+
 ### 创建页面
 
 1. 在`templates`目录下创建Twig模板，如`about.twig`：
