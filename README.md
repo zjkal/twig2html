@@ -22,11 +22,17 @@
 ## 快速开始
 
 ### 创建新项目
-
+通过`composer`命令创建新项目：
 ```bash
-composer create-project zjkal/twig2html my-project
-cd my-project
-composer dev
+    composer create-project zjkal/twig2html my-project
+```
+进入项目目录：
+```bash
+    cd my-project
+```
+启动开发服务器：
+```bash
+    composer dev
 ```
 
 然后在浏览器中访问 http://localhost:8080/ 即可看到示例页面。
@@ -46,7 +52,6 @@ my-project/
 │   │   └── images/ # 图片文件
 │   └── *.html      # 生成的HTML文件
 ├── build.php        # 构建脚本
-├── build.bat        # Windows构建批处理
 ├── dev.php          # 开发服务器
 ├── init.php         # 初始化脚本
 └── composer.json    # 项目配置文件
@@ -58,9 +63,7 @@ my-project/
 
 1. 启动开发服务器：
 ```bash
-composer dev
-# 或者
-php -S localhost:8080 dev.php
+    composer dev
 ```
 
 2. 在浏览器中访问模板：
@@ -85,7 +88,7 @@ php -S localhost:8080 dev.php
 ### 创建页面
 
 1. 在`templates`目录下创建Twig模板，如`about.twig`：
-```twig
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -122,9 +125,7 @@ return [
 开发完成后，执行以下命令生成静态HTML文件：
 
 ```bash
-composer build
-# 或者
-php build.php
+    composer build
 ```
 
 生成的HTML文件将保存在`public`目录中，可以直接部署到任何Web服务器。
@@ -133,9 +134,7 @@ php build.php
 
 1. 启动静态文件服务器：
 ```bash
-composer preview
-# 或者
-php -S localhost:8090 -t public
+    composer preview
 ```
 
 2. 在浏览器中访问生成的HTML页面，如`http://localhost:8090/index.html`
