@@ -17,6 +17,7 @@
     "scripts": {
         "build": "php build.php",
         "dev": "php -S localhost:8080 dev.php",
+        "preview": "php -S localhost:8090 -t public",
         "post-create-project-cmd": "php init.php"
     },
     "config": {

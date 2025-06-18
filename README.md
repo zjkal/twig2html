@@ -129,6 +129,17 @@ php build.php
 
 生成的HTML文件将保存在`public`目录中，可以直接部署到任何Web服务器。
 
+### 预览生成的静态HTML
+
+1. 启动静态文件服务器：
+```bash
+composer preview
+# 或者
+php -S localhost:8090 -t public
+```
+
+2. 在浏览器中访问生成的HTML页面，如`http://localhost:8090/index.html`
+
 ## 高级用法
 
 ### 数据文件（可选）
