@@ -23,29 +23,39 @@ if (!file_exists($outputDir)) {
 // 初始化转换器
 $converter = new Converter();
 
-// 获取所有.twig文件
-$templates = glob($sourceDir . '/*.twig');
-
-if (empty($templates)) {
-    echo "No .twig templates found in {$sourceDir}\n";
+// 使用批量转换方法
+try {
+    $result = $converter->convertDirectory($sourceDir, $outputDir, $dataDir);
+    
+    echo "\n转换结果:\n";
+    
+    // 输出成功转换的文件
+    if (!empty($result['success'])) {
+        echo "\n✅ 成功: " . count($result['success']) . " 个文件\n";
+        foreach ($result['success'] as $file) {
+            echo "  {$file}\n";
+        }
+    }
+    
+    // 输出跳过的文件
+    if (!empty($result['skipped'])) {
+        echo "\n⏭️ 跳过: " . count($result['skipped']) . " 个文件\n";
+        foreach ($result['skipped'] as $file) {
+            echo "  {$file}\n";
+        }
+    }
+    
+    // 输出失败的文件
+    if (!empty($result['failed'])) {
+        echo "\n❌ 失败: " . count($result['failed']) . " 个文件\n";
+        foreach ($result['failed'] as $file) {
+            echo "  {$file}\n";
+        }
+    }
+    
+    echo "\n转换完成！\n";
+    
+} catch (Exception $e) {
+    echo "转换过程出错: {$e->getMessage()}\n";
     exit(1);
 }
-
-// 转换每个模板
-foreach ($templates as $template) {
-    $templateName = basename($template);
-    $outputFile = $outputDir . '/' . str_replace('.twig', '.html', $templateName);
-    
-    // 查找对应的数据文件
-    $dataFile = $dataDir . '/' . str_replace('.twig', '.php', $templateName);
-    $data = file_exists($dataFile) ? require $dataFile : [];
-    
-    try {
-        $converter->convert($template, $outputFile, $data);
-        echo "Converted {$templateName} to " . basename($outputFile) . "\n";
-    } catch (Exception $e) {
-        echo "Error converting {$templateName}: {$e->getMessage()}\n";
-    }
-}
-
-echo "\nConversion completed successfully!\n";
