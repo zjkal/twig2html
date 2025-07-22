@@ -12,7 +12,8 @@
     "require": {
         "php": ">=7.4",
         "ext-fileinfo": "*",
-        "zjkal/twig2html-core": "@dev"
+        "zjkal/twig2html-core": "@dev",
+        "zjkal/time-helper": "^1.0"
     },
     "scripts": {
         "build": "php build.php",
