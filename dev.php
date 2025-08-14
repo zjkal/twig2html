@@ -76,7 +76,7 @@ if (strpos($requestPath, '/assets/') === 0) {
             'ics' => 'text/calendar',
             'vcf' => 'text/vcard'
         ];
-        $mimeType = isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : mime_content_type($filePath);
+        $mimeType = $mimeTypes[$extension] ?? mime_content_type($filePath);
         header('Content-Type: ' . $mimeType);
         header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
         header('Pragma: no-cache');
