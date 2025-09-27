@@ -76,14 +76,14 @@ my-project/
 为了区分完整页面模板和部分模板（如布局、导航等），我们采用以下命名规范：
 
 - 完整页面模板：使用`.twig`后缀，例如：`index.twig`、`about.twig`
-- 部分模板：使用`.part.twig`后缀，例如：
-  - `header.part.twig`：页头模板
-  - `footer.part.twig`：页脚模板
-  - `nav.part.twig`：导航模板
-  - `sidebar.part.twig`：侧边栏模板
-  - `layout.part.twig`：布局模板
+- 部分模板：使用`_partial.twig`后缀，例如：
+  - `header_partial.twig`：页头模板
+  - `footer_partial.twig`：页脚模板
+  - `nav_partial.twig`：导航模板
+  - `sidebar_partial.twig`：侧边栏模板
+  - `layout_partial.twig`：布局模板
 
-在目录批量转换时，所有`.part.twig`后缀的文件都会被自动跳过，不会生成对应的HTML文件。
+在目录批量转换时，所有`_partial.twig`后缀的文件都会被自动跳过，不会生成对应的HTML文件。
 
 ### 创建页面
 
