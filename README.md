@@ -24,15 +24,15 @@
 ### 创建新项目
 通过`composer`命令创建新项目：
 ```bash
-    composer create-project zjkal/twig2html my-project
+composer create-project zjkal/twig2html my-project
 ```
 进入项目目录：
 ```bash
-    cd my-project
+cd my-project
 ```
 启动开发服务器：
 ```bash
-    composer dev
+composer dev
 ```
 
 然后在浏览器中访问 http://localhost:8080/ 即可看到示例页面。
@@ -64,7 +64,7 @@ my-project/
 
 1. 启动开发服务器：
 ```bash
-    composer dev
+composer dev
 ```
 
 2. 在浏览器中访问模板：
@@ -126,7 +126,7 @@ return [
 开发完成后，执行以下命令生成静态HTML文件：
 
 ```bash
-    composer build
+composer build
 ```
 
 生成的HTML文件将保存在`public`目录中，可以直接部署到任何Web服务器。
@@ -135,7 +135,7 @@ return [
 
 1. 启动静态文件服务器：
 ```bash
-    composer preview
+composer preview
 ```
 
 2. 在浏览器中访问生成的HTML页面，如`http://localhost:8090/index.html`
