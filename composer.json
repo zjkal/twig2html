@@ -16,10 +16,10 @@
         "zjkal/time-helper": "^1.0"
     },
     "scripts": {
-        "build": "php build.php",
-        "dev": "php -S localhost:8080 dev.php",
+        "build": "php bin/build.php",
+        "dev": "php -S localhost:8080 bin/dev.php",
         "preview": "php -S localhost:8090 -t public",
-        "post-create-project-cmd": "php init.php"
+        "post-create-project-cmd": "php bin/init.php"
     },
     "config": {
         "sort-packages": true,

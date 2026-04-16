@@ -1,14 +1,15 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+$baseDir = dirname(__DIR__);
+require $baseDir . '/vendor/autoload.php';
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 // 设置目录
-$templatesDir = __DIR__ . '/templates';
-$dataDir = __DIR__ . '/data';
-$publicDir = __DIR__ . '/public';
+$templatesDir = $baseDir . '/templates';
+$dataDir = $baseDir . '/data';
+$publicDir = $baseDir . '/public';
 
 // 创建Twig环境
 $loader = new FilesystemLoader($templatesDir);

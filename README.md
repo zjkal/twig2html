@@ -51,9 +51,10 @@ my-project/
 │   │   ├── js/     # JavaScript文件
 │   │   └── images/ # 图片文件
 │   └── *.html      # 生成的HTML文件
-├── build.php        # 构建脚本
-├── dev.php          # 开发服务器
-├── init.php         # 初始化脚本
+├── bin/             # 脚本目录
+│   ├── build.php    # 构建脚本
+│   ├── dev.php      # 开发服务器
+│   └── init.php     # 初始化脚本
 └── composer.json    # 项目配置文件
 ```
 

@@ -1,14 +1,16 @@
 <?php
 
+$baseDir = dirname(__DIR__);
+
 // 定义需要创建的目录
 $directories = [
-    __DIR__ . '/templates',
-    __DIR__ . '/data',
-    __DIR__ . '/public',
-    __DIR__ . '/public/assets',
-    __DIR__ . '/public/assets/css',
-    __DIR__ . '/public/assets/js',
-    __DIR__ . '/public/assets/images'
+    $baseDir . '/templates',
+    $baseDir . '/data',
+    $baseDir . '/public',
+    $baseDir . '/public/assets',
+    $baseDir . '/public/assets/css',
+    $baseDir . '/public/assets/js',
+    $baseDir . '/public/assets/images'
 ];
 
 // 创建目录
@@ -20,7 +22,7 @@ foreach ($directories as $directory) {
 }
 
 // 创建示例模板文件
-$exampleTemplate = __DIR__ . '/templates/index.twig';
+$exampleTemplate = $baseDir . '/templates/index.twig';
 if (!file_exists($exampleTemplate)) {
     $templateContent = <<<'TWIG'
 <!DOCTYPE html>
@@ -70,7 +72,7 @@ TWIG;
 }
 
 // 创建示例数据文件
-$exampleData = __DIR__ . '/data/index.php';
+$exampleData = $baseDir . '/data/index.php';
 if (!file_exists($exampleData)) {
     $dataContent = <<<'PHP'
 <?php
@@ -88,7 +90,7 @@ PHP;
 }
 
 // 创建示例CSS文件
-$exampleCss = __DIR__ . '/public/assets/css/style.css';
+$exampleCss = $baseDir . '/public/assets/css/style.css';
 if (!file_exists($exampleCss)) {
     $cssContent = <<<'CSS'
 /* 示例样式文件 */
@@ -113,7 +115,7 @@ CSS;
 }
 
 // 创建示例JavaScript文件
-$exampleJs = __DIR__ . '/public/assets/js/main.js';
+$exampleJs = $baseDir . '/public/assets/js/main.js';
 if (!file_exists($exampleJs)) {
     $jsContent = <<<'JS'
 // 示例JavaScript文件
@@ -123,7 +125,7 @@ JS;
     echo "Created example JavaScript file: {$exampleJs}\n";
 }
 
-$projectDir = basename(__DIR__);
+$projectDir = basename($baseDir);
 echo "\n项目初始化完成！\n";
 echo "请先进入项目目录：cd {$projectDir}\n";
 echo "然后运行 'composer dev' 启动开发服务器，访问 http://localhost:8080/ 预览页面。\n";

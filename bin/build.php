@@ -1,13 +1,14 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+$baseDir = dirname(__DIR__);
+require_once $baseDir . '/vendor/autoload.php';
 
 use zjkal\twig2html\core\Converter;
 
 // 设置目录
-$sourceDir = __DIR__ . '/templates';
-$outputDir = __DIR__ . '/public';
-$dataDir = __DIR__ . '/data';
+$sourceDir = $baseDir . '/templates';
+$outputDir = $baseDir . '/public';
+$dataDir = $baseDir . '/data';
 
 // 检查必要目录是否存在
 if (!file_exists($sourceDir) || !file_exists($dataDir)) {
